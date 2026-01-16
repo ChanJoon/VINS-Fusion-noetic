@@ -1,0 +1,68 @@
+%YAML:1.0
+
+#common parameters
+imu: 1         
+num_of_cam: 2  
+
+imu_topic: "/imu"
+image0_topic: "/stereo/left/image_raw"
+image1_topic: "/stereo/right/image_raw"
+output_path: "/ros_ws/src/VINS-Fusion/config/turtlebot_multicam"
+
+cam0_calib: "left.yaml"
+cam1_calib: "right.yaml"
+image_width: 640
+image_height: 480
+   
+# Extrinsic parameter between IMU and Camera.
+estimate_extrinsic: 1
+
+body_T_cam0: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [ 0, 0, 1, 0.064,
+           -1, 0, 0, 0.0325,
+           0, -1, 0, 0.132,
+           0, 0, 0, 1 ]
+
+body_T_cam1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [ 0, 0, 1, 0.064,
+           -1, 0, 0, -0.0325,
+           0, -1, 0, 0.132,
+           0, 0, 0, 1 ]
+
+#Multiple thread support
+multiple_thread: 1
+
+#feature traker paprameters
+max_cnt: 150
+min_dist: 30
+freq: 20
+F_threshold: 1.0
+show_track: 1
+flow_back: 1
+
+#optimization parameters
+max_solver_time: 0.04
+max_num_iterations: 8
+keyframe_parallax: 10.0
+
+#imu parameters
+acc_n: 0.1
+gyr_n: 0.01
+acc_w: 0.001
+gyr_w: 0.0001
+g_norm: 9.805
+
+#unsynchronization parameters
+estimate_td: 0
+td: 0.0
+
+#loop closure parameters
+load_previous_pose_graph: 0
+pose_graph_save_path: "/ros_ws/src/VINS-Fusion/output/pose_graph/"
+save_image: 1
